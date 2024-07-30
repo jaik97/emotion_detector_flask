@@ -1,3 +1,7 @@
+"""
+This is the flask server code which routes the application based the path.
+"""
+
 from flask import Flask, render_template, request
 from EmotionDetection.emotion_detect import emotion_detector
 
@@ -29,22 +33,24 @@ def emo_detect():
 
     if dominant_emotion is None:
         return "Invalid text! Please try again!"
-    else:
-        #Return the response of the list of emotions
-        response = f"For the given statement, the system response is 'anger':{anger_score}, 'digust': {disgust_score}, 'fear': {fear_score}, 'joy': {joy_score}, 'sadness': {sadness_score}. The dominant emotion is {dominant_emotion}."
-        return response
+    #Return the response of the list of emotions
+    response = f"""
+    For the given statement, the system response is 'anger':{anger_score}, 
+    'digust': {disgust_score}, 'fear': {fear_score}, 'joy': {joy_score}, 
+    'sadness': {sadness_score}. The dominant emotion is {dominant_emotion}.
+    """
+    return response
 
 @app.route("/")
 def render_index_page():
-    '''
+    """
     This function initiates the rendering of the main application 
     page over the Flask channel
-    '''
+    """
 
     return render_template('index.html')
 
 if __name__=="__main__":
-    '''
-    This function executes the flask app and deploys it on the localhost:5000
-    '''
+    #This function executes the flask app and deploys it on the localhost:5000
     app.run(host="0.0.0.0", port=5000)
+    
